@@ -64,7 +64,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> 
-          auth.requestMatchers("/api/auth/**","/api/service-categories","/api/services").permitAll()
+          auth.requestMatchers("/api/auth/**","/api/service-categories","/api/services","/api/vehicles","/api/appointments/**").permitAll()
                   .requestMatchers(HttpMethod.DELETE, "/api/technician/remove/**").hasRole("ADMIN")
         );
     

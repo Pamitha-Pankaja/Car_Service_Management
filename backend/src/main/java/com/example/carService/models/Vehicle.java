@@ -19,6 +19,11 @@ public class Vehicle {
     @NotBlank
     private String model;
 
+    @NotBlank
+    private String vehicleNo; // Unique vehicle number
+
+    @NotBlank
+    private String type; // Type of the vehicle, e.g., Car, Truck, etc.
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -26,7 +31,6 @@ public class Vehicle {
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Appointment> appointments = new HashSet<>();
-
 
     // Getters and Setters
     public Long getId() {
@@ -53,6 +57,21 @@ public class Vehicle {
         this.model = model;
     }
 
+    public String getVehicleNo() {
+        return vehicleNo;
+    }
+
+    public void setVehicleNo(String vehicleNo) {
+        this.vehicleNo = vehicleNo;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public User getOwner() {
         return owner;
@@ -69,6 +88,5 @@ public class Vehicle {
     public void setAppointments(Set<Appointment> appointments) {
         this.appointments = appointments;
     }
-
 }
 
