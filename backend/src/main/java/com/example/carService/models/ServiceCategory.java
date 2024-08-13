@@ -16,7 +16,7 @@ public class ServiceCategory {
     @NotBlank
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Services> services = new HashSet<>();
 
     // Getters and Setters

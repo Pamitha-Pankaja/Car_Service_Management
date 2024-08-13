@@ -111,6 +111,7 @@
 
 package com.example.carService.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -118,12 +119,13 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "appointments")
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
 
@@ -131,17 +133,20 @@ public class Appointment {
     @JoinColumn(name = "technician_id", nullable = false)
     private Technician technician;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "service_id", nullable = false)
     private Services service;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+
+    @Column(name = "approved")
+    private int approved = 0;
 
     // Getters and Setters
 
@@ -207,6 +212,14 @@ public class Appointment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int isApproved() {
+        return approved;
+    }
+
+    public void setApproved(int approved) {
+        this.approved = approved;
     }
 }
 

@@ -106,6 +106,7 @@ package com.example.carService.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -134,6 +135,11 @@ public class Services {
 
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Appointment> appointments = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "service_time_slots", joinColumns = @JoinColumn(name = "service_id"))
+    @Column(name = "fixed_time_slot")
+    private List<String> fixedTimeSlots;
 
     // Getters and Setters
 
@@ -199,5 +205,13 @@ public class Services {
 
     public void setAppointments(Set<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public List<String> getFixedTimeSlots() {
+        return fixedTimeSlots;
+    }
+
+    public void setFixedTimeSlots(List<String> fixedTimeSlots) {
+        this.fixedTimeSlots = fixedTimeSlots;
     }
 }

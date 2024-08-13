@@ -1,5 +1,6 @@
 package com.example.carService.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -8,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "vehicles")
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
