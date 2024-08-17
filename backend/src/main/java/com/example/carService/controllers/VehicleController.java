@@ -1,5 +1,6 @@
 package com.example.carService.controllers;
 import com.example.carService.models.Vehicle;
+import com.example.carService.payload.response.VehicleResponse;
 import com.example.carService.security.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
 @RestController
 @RequestMapping("/api/vehicles")
 public class VehicleController {
@@ -46,5 +48,15 @@ public class VehicleController {
     public ResponseEntity<Void> deleteVehicle(@PathVariable Long id) {
         vehicleService.deleteVehicle(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<VehicleResponse>> getVehiclesByUserId(@PathVariable Long userId) {
+        List<VehicleResponse> vehicles = vehicleService.getVehiclesByUserId(userId);
+        if (vehicles.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(vehicles);
+        }
     }
 }

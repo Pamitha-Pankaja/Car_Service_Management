@@ -10,5 +10,6 @@ import java.util.List;
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     // Add custom query methods if needed
     List<Vehicle> findByVehicleNo(String brand);
+    List<Vehicle> findByOwnerId(Long userId);
 }
 
