@@ -55,7 +55,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/appointments")
 public class AppointmentController {
