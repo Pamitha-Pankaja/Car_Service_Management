@@ -37,15 +37,51 @@ public class ServiceService {
         return serviceRepository.save(services);
     }
 
+//    public Services updateService(Long id, Services servicesDetails) {
+//        Services services = serviceRepository.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Service not found"));
+//
+//        services.setName(servicesDetails.getName());
+//        services.setDescription(servicesDetails.getDescription());
+//        services.setCost(servicesDetails.getCost());
+//        return serviceRepository.save(services);
+//    }
+
     public Services updateService(Long id, Services servicesDetails) {
         Services services = serviceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Service not found"));
 
+        // Update the fields
         services.setName(servicesDetails.getName());
         services.setDescription(servicesDetails.getDescription());
         services.setCost(servicesDetails.getCost());
+        services.setSlots(servicesDetails.getSlots());
+        services.setTimePeriod(servicesDetails.getTimePeriod());
+        services.setFixedTimeSlots(servicesDetails.getFixedTimeSlots());
+
+        // Save the updated entity
         return serviceRepository.save(services);
     }
+
+    // Utility to convert a single `Services` object to `ServicesResponse`
+    public ServicesResponse refactorSingleResponse(Services services) {
+        ServicesResponse servicesResponse = new ServicesResponse();
+        servicesResponse.setId(services.getId());
+        servicesResponse.setName(services.getName());
+        servicesResponse.setDescription(services.getDescription());
+        servicesResponse.setCost(services.getCost());
+        servicesResponse.setFixedTimeSlots(services.getFixedTimeSlots());
+        servicesResponse.setSlots(services.getSlots());
+        servicesResponse.setTimePeriod(services.getTimePeriod());
+
+        ServiceCategory serviceCategory = new ServiceCategory();
+        serviceCategory.setId(services.getCategory().getId());
+        serviceCategory.setName(services.getCategory().getName());
+        servicesResponse.setCategory(serviceCategory);
+
+        return servicesResponse;
+    }
+
 
     public void deleteService(Long id) {
         Services services = serviceRepository.findById(id)
@@ -63,6 +99,9 @@ public class ServiceService {
             servicesResponse.setId(services.getId());
             servicesResponse.setName(services.getName());
             servicesResponse.setDescription(services.getDescription());
+            servicesResponse.setTimePeriod(services.getTimePeriod());
+            servicesResponse.setFixedTimeSlots(services.getFixedTimeSlots());
+            servicesResponse.setSlots(services.getSlots());
             servicesResponse.setCost(services.getCost());
             ServiceCategory serviceCategory = new ServiceCategory();
             serviceCategory.setId(services.getCategory().getId());

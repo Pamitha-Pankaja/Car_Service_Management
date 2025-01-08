@@ -54,12 +54,21 @@ public class ServiceController {
     public Services createService(@RequestBody Services service) {
         return serviceService.createService(service);
     }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Services> updateService(@PathVariable Long id, @RequestBody Services serviceDetails) {
+//        Services updatedService = serviceService.updateService(id, serviceDetails);
+//        return ResponseEntity.ok(updatedService);
+//    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Services> updateService(@PathVariable Long id, @RequestBody Services serviceDetails) {
+    public ResponseEntity<ServicesResponse> updateService(@PathVariable Long id, @RequestBody Services serviceDetails) {
         Services updatedService = serviceService.updateService(id, serviceDetails);
-        return ResponseEntity.ok(updatedService);
+        // Convert the updated service to a refactored response
+        ServicesResponse response = serviceService.refactorSingleResponse(updatedService);
+        return ResponseEntity.ok(response);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteService(@PathVariable Long id) {

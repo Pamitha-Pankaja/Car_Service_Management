@@ -2,6 +2,8 @@ package com.example.carService.payload.response;
 
 import com.example.carService.models.ServiceCategory;
 
+import java.util.List;
+
 
 @lombok.Getter
 @lombok.Setter
@@ -13,5 +15,8 @@ public class ServicesResponse {
     private String description;
     private Double cost;
     private ServiceCategory category;
+    private Integer slots;
+    private List<String> fixedTimeSlots;
+    private Integer timePeriod;
 
 }
